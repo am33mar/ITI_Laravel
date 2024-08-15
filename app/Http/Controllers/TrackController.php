@@ -23,7 +23,7 @@ class TrackController extends Controller
 
     function index()
     {
-        $tracks = Track::all();
+        $tracks=Track::orderBy('created_at',"desc")->paginate(5);
         return view("tracks.index", ["tracks" => $tracks]);
     }
     function viewTrack($id)
@@ -38,7 +38,7 @@ class TrackController extends Controller
         if ($track->icon) 
             Storage::disk('track_uploads')->delete($track->icon);
         Track::find($id)->delete();
-        $tracks = Track::all();
+        $tracks=Track::orderBy('created_at',"desc")->paginate(5);
         return view("tracks.index", ["tracks" => $tracks]);
     }
     function createTrack()
@@ -78,6 +78,11 @@ class TrackController extends Controller
             $newData['icon'] = $newImagePath;
         }
         $track->update($newData);
+        return to_route('tracks.index');
+    }
+    function generate(Request $request)
+    {
+        Track::factory()->count($request->count)->create();
         return to_route('tracks.index');
     }
 }

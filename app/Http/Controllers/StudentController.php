@@ -21,8 +21,7 @@ class StudentController extends Controller
     }
     function index()
     {
-        //using model
-        $students = Student::all();
+        $students=Student::orderBy('created_at',"desc")->paginate(5);
         return view("students.index", ["students" => $students]);
     }
 
@@ -34,7 +33,7 @@ class StudentController extends Controller
     function deleteStudent($id)
     {
         Student::findOrFail($id)->delete();
-        $students = Student::all();
+        $students=Student::orderBy('created_at',"desc")->paginate(5);
         return view("students.index", ["students" => $students]);
     }
     function createStudent()
@@ -75,6 +74,11 @@ class StudentController extends Controller
             $newData['image'] = $newImagePath;
         }
         $student->update($newData);
+        return to_route('students.index');
+    }
+    function generate(Request $request)
+    {
+        Student::factory()->count($request->count)->create();
         return to_route('students.index');
     }
 }
