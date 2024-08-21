@@ -24,7 +24,7 @@
                 <td>{{$student->grade}}</td>
                 <td>{{$student->gender}}</td>
                 <td>
-                    <div class="h-full d-flex gap-2">
+                    <div class="h-full d-flex gap-2 justify-center">
                         <x-btn-view href="{{route('students.view',$student->id)}}">View</x-btn-view>
                         <x-btn-update href="{{route('students.edit',$student->id)}}">Update</x-btn-update>
                         <x-form-delete action="{{route('students.destroy',$student->id)}}" method='post'>Delete</x-form-delete>
@@ -35,18 +35,18 @@
 
         </table>
 
-        <div class="flex justify-between w-[80%]">
+        <div class="px-[20%] flex justify-around g-4 border-t-2 border-gray-200 pt-2">
             <x-btn-create href="{{route('students.create')}}">Add New Student</x-btn-create>
-            <form action="{{ route('students.generate') }}" method="POST">
+            <form action="{{ route('students.generate') }}" method="POST" class="text-center w-[50%]">
                 @csrf
-                <input type="number" name="count" placeholder="Number of students to generate" class="w-100 p-1 mb-1"> <!-- Number of records to create -->
-                <button type="submit" class="btn btn-primary w-100">Generate Students</button>
+                <input type="number" name="count" placeholder="Number of students to generate" class="w-75 p-1 mb-1 border"> <!-- Number of records to create -->
+                <button type="submit" class="btn btn-primary w-75">Generate Students</button>
             </form>
         </div>
     </div>
     <!-- pagination -->
     <div class="bg-gray-100 px-4 py-2">
-        <div class="w-full max-w-3xl mx-auto">
+        <div class="w-full px-[10%]">
             {{$students->links()}}
         </div>
     </div>

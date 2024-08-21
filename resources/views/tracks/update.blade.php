@@ -35,6 +35,20 @@
             <label for="courses" class="form-label">Number of Courses</label>
             <input name="number_courses" type="number" class="form-control" id="courses" value="{{ $track->number_courses }}">
         </div>
+
+        <div class="mb-3 mx-4">
+            <label for="courses" class="form-label">Courses:</label>
+            <select name="courses[]" id="courses" class="block w-full pb-4 mt-1 form-multiselect border-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" multiple>
+                @foreach($courses as $course)
+                @if ($track->courses->contains($course->id))
+                <option value="{{ $course->id }}" {{'selected'}}>{{ $course->name }}</option>
+                @else
+                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                @endif
+
+                @endforeach
+            </select>
+        </div>
         <!-- image -->
         <div class="mb-3 mx-4">
             <label for="icon" class="form-label">Image:</label>

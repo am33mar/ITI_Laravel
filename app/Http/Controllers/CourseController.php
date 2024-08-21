@@ -25,12 +25,11 @@ class CourseController extends Controller
     function destroy($id)
     {
         Course::findOrFail($id)->delete();
-        $courses = Course::orderBy('created_at', "desc")->paginate(5);
-        return view("courses.index", ["courses" => $courses]);
+        return to_route('courses.index');
     }
     function create()
     {
-        return view('courses.create');
+        return view('courses.create',compact('courses'));
     }
     function store(Request $request)
     {

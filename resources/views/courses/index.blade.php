@@ -22,7 +22,7 @@
                     <td>{{$course->total_grade}}</td>
                     <td>{{$course->description}}</td>
                     <td>
-                        <div class="h-full d-flex gap-2">
+                        <div class="h-full d-flex gap-2 justify-center">
                             <x-btn-view href="{{route('courses.show',$course->id)}}">View</x-btn-view>
                             <x-btn-update href="{{route('courses.edit',$course->id)}}">Update</x-btn-update>
                             <x-form-delete action="{{route('courses.destroy',$course->id)}}" method='post'>Delete</x-form-delete>
@@ -31,13 +31,13 @@
                 </tr>
                 @endforeach
             </table>
-            <div class="w-[80%] flex justify-between">
+            <div class="px-[20%] flex justify-around g-4 border-t-2 border-gray-200 pt-2">
                 <x-btn-create href="{{route('courses.create')}}">Add New Course</x-btn-create>
                 <!-- generation -->
-                <form action="{{ route('courses.generate') }}" method="POST">
+                <form action="{{ route('courses.generate') }}" method="POST" class="text-center w-[50%]">
                     @csrf
-                    <input type="number" name="count" placeholder="Number of courses to generate" class="w-100 p-1 mb-1"> <!-- Number of records to create -->
-                    <button type="submit" class="btn btn-primary w-100">Generate Courses</button>
+                    <input type="number" name="count" placeholder="Number of courses to generate" class="w-75 p-1 mb-1 border"> <!-- Number of records to create -->
+                    <button type="submit" class="btn btn-primary w-75">Generate Courses</button>
                 </form>
             </div>
 
@@ -45,7 +45,7 @@
         
         <!-- pagination -->
         <div class="bg-gray-100 px-4 py-2">
-            <div class="w-full max-w-3xl mx-auto">
+            <div class="w-full px-[10%]">
                 {{$courses->links()}}
             </div>
         </div>

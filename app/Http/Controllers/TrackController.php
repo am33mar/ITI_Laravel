@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Track;
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\Course;
 class TrackController extends Controller
 {
     function saveImage($request)
@@ -29,7 +29,7 @@ class TrackController extends Controller
     function viewTrack($id)
     {
         $track = Track::findOrFail($id);
-        return view("tracks.view", ["track" => $track]);
+        return view("tracks.view", compact('track'));
     }
     function deleteTrack($id)
     {
@@ -38,12 +38,12 @@ class TrackController extends Controller
         if ($track->icon) 
             Storage::disk('track_uploads')->delete($track->icon);
         Track::find($id)->delete();
-        $tracks=Track::orderBy('created_at',"desc")->paginate(5);
-        return view("tracks.index", ["tracks" => $tracks]);
+        return to_route('tracks.index');
     }
     function createTrack()
     {
-        return view('tracks.create');
+        $courses=Course::all();
+        return view('tracks.create',compact('courses'));
     }
     function storeTrack(Request $request)
     {
@@ -51,18 +51,16 @@ class TrackController extends Controller
         $requestData = request()->all();
         $requestData['icon'] = $logoPath;
 
-        $track = new Track();
-        $track->name = $requestData['name'];
-        $track->branch = $requestData['branch'];
-        $track->number_courses = $requestData['number_courses'];
-        $track->icon = $requestData['icon'];
+        $track = Track::create($requestData);
+        $track->courses()->attach(array_values($requestData['courses']));
         $track->save();
         return to_route('tracks.index');
     }
     function editTrack($id)
     {
         $track = Track::findOrFail($id);
-        return view('tracks.update', compact("track"));
+        $courses = Course::all();
+        return view('tracks.update', compact("track","courses"));
     }
     function updateTrack(Request $request, $id)
     {
@@ -78,6 +76,7 @@ class TrackController extends Controller
             $newData['icon'] = $newImagePath;
         }
         $track->update($newData);
+        $track->courses()->sync(array_values($request['courses']));
         return to_route('tracks.index');
     }
     function generate(Request $request)

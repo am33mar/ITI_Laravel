@@ -39,6 +39,17 @@
                 Female
             </label>
         </div>
+        <!-- track of student -->
+        <div class="mb-3 mx-4">
+            <label for="track" class="block mb-2 font-medium text-gray-900">Select a track</label>
+            <select id="track" name="track_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5">
+                <option selected disabled>Choose a track</option>
+                @php
+                foreach ($tracks as $track)
+                echo "<option value='$track->id'>$track->name</option>";
+                @endphp
+            </select>
+        </div>
         <!-- image -->
         <div class="mb-3 mx-4">
             <label for="image" class="form-label">Image </label>
@@ -69,4 +80,5 @@
         });
     </script>
 </body>
+
 </html>

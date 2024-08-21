@@ -41,6 +41,19 @@
                 Female
             </label>
         </div>
+        <div class="mb-3 mx-4">
+            <label for="track" class="block mb-2 font-medium text-gray-900">Select a track</label>
+            <select id="track" name="track_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5">
+                <option disabled selected value="null">Choose a track</option>
+                @foreach ($tracks as $track)
+                @if($track->id==$student->track_id)
+                <option value="{{$track->id}}" selected>{{$track->name}}</option>
+                @else
+                <option value="{{$track->id}}">{{$track->name}}</option>
+                @endif
+                @endforeach
+            </select>
+        </div>
         <!-- image -->
         <div class="mb-3 mx-4">
             <label for="image" class="form-label">Image </label>

@@ -68,22 +68,7 @@ Route::post('/generate-tracks', [TrackController::class, 'generate'])->name('tra
 
 
 //lab4
-/** Route resource */
+/** Route/Controller resource */
 Route::resource('courses', CourseController::class);
 // routes/web.php
 Route::post('/generate-courses', [CourseController::class, 'generate'])->name('courses.generate');
-
-/*
-// method         // url            // route name
- GET|HEAD        tracks ........... tracks.index ›
- function in controller
- TrackController@index
-  POST            tracks ........... tracks.store › TrackController@store
-  GET|HEAD        tracks/create .. tracks.create › TrackController@create
-  GET|HEAD        tracks/{track} ..... tracks.show › TrackController@show
-  PUT|PATCH       tracks/{track} . tracks.update › TrackController@update
-  DELETE          tracks/{track} tracks.destroy › TrackController@destroy
-  GET|HEAD        tracks/{track}/edit tracks.edit › TrackController@edit
-  GET|HEAD
-
-*/
